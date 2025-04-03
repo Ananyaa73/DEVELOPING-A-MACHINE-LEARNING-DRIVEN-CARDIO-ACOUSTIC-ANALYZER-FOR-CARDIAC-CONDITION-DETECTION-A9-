@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Fruitkha</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="{%static 'assets/img/favicon.png' %}">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="{%static 'assets/css/all.min.css' %}">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="{%static 'assets/bootstrap/css/bootstrap.min.css' %}">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="{%static 'assets/css/owl.carousel.css' %}">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="{%static 'assets/css/magnific-popup.css' %}">
+	<!-- animate css -->
+	<link rel="stylesheet" href="{%static 'assets/css/animate.css' %}">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="{%static 'assets/css/meanmenu.min.css' %}">
+	<!-- main style -->
+	<link rel="stylesheet" href="{%static 'assets/css/main.css' %}">
+	<!-- responsive -->
+	<link rel="stylesheet" href="{%static 'assets/css/responsive.css' %}">
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+	<!-- header -->
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a href="index.html">
+								
+                <h4><span style="color: #F28123;">Welcome, {{user.username.title|default:'Guest'}}</span></h4> 
+
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+              {% if user.is_authenticated %}
+							<ul>
+								<li class="current-list-item"><a href="/">Home</a>
+									
+								</li>
+								<li><a href="{% url 'users-profile' %}">Profile</a></li>
+								<li><a href="{% url 'model_db' %}">Database</a>
+									
+								</li>
+								<li><a href="{% url 'profile_list' %}">profile_Database</a>
+									
+								</li>
+								
+								<li>
+                  <a href="{% url 'logout_view' %}" class="boxed-btn">logout</a>
+									
+								</li>
+                {% endif %}
+                
+								
+							</ul>
+						</nav>
+						
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="hero-area hero-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 offset-lg-2 text-center">
+					<div class="hero-text">
+            {% if user.is_authenticated %}
+            <div class="hero-text-tablecell">
+							<p class="subtitle">Fresh & Organic</p>
+							<h1>Fruits And Vegetables quality detections</h1>
+							<div class="hero-btns">
+								
+								<a href="{% url 'model' %}" class="boxed-btn">model</a>
+							</div>
+						</div>
+            {% else %}
+						<div class="hero-text-tablecell">
+							<p class="subtitle">As a New User</p>
+							<h1>Kindly Register or Login here </h1>
+							<div class="hero-btns">
+								<a href="{% url 'users-register' %}" class="bordered-btn">Register </a>
+								<a href="{% url 'login' %}" class="boxed-btn">Login</a>
+							</div>
+						</div>
+            {% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end hero area -->
+
+	<!-- features list section -->
+  
+	
+	<!-- end features list section -->
+  {% if user.is_authenticated %}
+	<!-- product section -->
+
+	<!-- end product section -->
+
+	<!-- cart banner section -->
+	<section class="cart-banner pt-100 pb-100">
+    	<div class="container">
+        	<div class="row clearfix">
+            	<!--Image Column-->
+            	<div class="image-column col-lg-6">
+                	<div class="image">
+                    	<div class="price-box">
+                        	<div class="inner-price">
+                                <span class="price">
+                                    <strong>AI BASED</strong> <br> 
+                                </span>
+                            </div>
+                        </div>
+                    	<img src="{%static 'assets/img/a.jpg' %}" alt="">
+                    </div>
+                </div>
+                <!--Content Column-->
+                <div class="content-column col-lg-6">
+					<h3><span class="orange-text">Detection of </span><br><br> freshness fruits and Vegetables</h3>
+                    
+                    <!--Countdown Timer-->
+                    <p>AI-powered freshness detection uses deep learning to assess the quality of fruits and vegetables in real-time, ensuring optimal freshness and reducing food waste.</p>
+
+                    <!-- <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
+                	<a href="cart.html" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end cart banner section -->
+
+	<!-- testimonail-section -->
+	
+	<!-- end testimonail-section -->
+	
+	<!-- advertisement section -->
+	<div class="abt-section mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<div class="abt-bg">
+						<a href="https://www.youtube.com/watch?v=OcbWkrsnb14" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-12">
+					<div class="abt-text">
+						<h2>Benefits of  <span class="orange-text">Fruits and Vegetables</span></h2>
+						<p>Fruits and vegetables are essential components of a healthy diet, offering a wide range of nutritional benefits. They are rich in vitamins, minerals, and dietary fiber, which contribute to overall well-being. Regular consumption of fruits and vegetables can help prevent chronic diseases, manage weight, and support digestive health.</p>
+
+            <p>In addition to their nutritional value, fruits and vegetables are packed with antioxidants that help reduce oxidative stress and support healthy skin. They also play a crucial role in boosting the immune system and maintaining hydration levels. Incorporating a variety of these foods into your diet can lead to improved mental health and increased life expectancy.</p>
+
+						<a href="https://en.wikipedia.org/wiki/Fruits_%26_Veggies_%E2%80%93_More_Matters" class="boxed-btn mt-4">know more</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end advertisement section -->
+	
+	
+	<!-- end copyright -->
+	{% endif %}
+	<!-- jquery -->
+	<script src="{%static 'assets/js/jquery-1.11.3.min.js' %}"></script>
+	<!-- bootstrap -->
+	<script src="{%static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+	<!-- count down -->
+	<script src="{%static 'assets/js/jquery.countdown.js' %}"></script>
+	<!-- isotope -->
+	<script src="{%static 'assets/js/jquery.isotope-3.0.6.min.js' %}"></script>
+	<!-- waypoints -->
+	<script src="{%static 'assets/js/waypoints.js' %}"></script>
+	<!-- owl carousel -->
+	<script src="{%static 'assets/js/owl.carousel.min.js' %}"></script>
+	<!-- magnific popup -->
+	<script src="{%static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+	<!-- mean menu -->
+	<script src="{%static 'assets/js/jquery.meanmenu.min.js' %}"></script>
+	<!-- sticker js -->
+	<script src="{%static 'assets/js/sticker.js' %}"></script>
+	<!-- main js -->
+	<script src="{%static 'assets/js/main.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Heart Classification</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="data:image/jpeg;base64,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" rel="icon">
+  <link href="{%static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{%static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{%static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{%static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{%static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{%static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{%static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: eBusiness
+  * Template URL: https://bootstrapmade.com/ebusiness-bootstrap-corporate-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 class="sitename" style="color: #F28123;">Welcome ,{{user.username.title|default:'Guest'}}</h1>
+
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+		  {% if user.is_authenticated %}
+
+          <li><a href="#hero" class="active">Home</a></li>
+		  <li><a href="{% url 'users-profile' %}">Profile</a></li>
+		  <li><a href="{% url 'model_db' %}">Database</a>
+			  
+		  </li>
+		  <li><a href="{% url 'profile_list' %}">profile_Database</a>
+			  
+		  </li>
+		  
+		  <li>
+			<a href="{% url 'logout_view' %}" class="boxed-btn">logout</a>
+			  
+		  </li>
+		  {% endif %}
+          
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+	 
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+		{% if user.is_authenticated %}
+        <div class="carousel-item active">
+          <img src="https://www.genengnews.com/wp-content/uploads/2022/07/Getty_1126117009_Heart_sml-1068x713-1.jpg" alt="">
+          <div class="carousel-container">
+			<center>
+            <h2>Expert in Heartbeat Classification</h2>
+			<p>Our team specializes in advanced heartbeat classification techniques to monitor and assess cardiac health. Using state-of-the-art machine learning algorithms and deep learning models, we analyze heartbeat patterns to detect anomalies and diagnose various heart conditions. Our approach ensures accurate, real-time monitoring and actionable insights to enhance patient care and improve cardiovascular health outcomes.</p>
+		   </center>
+            <a href="{% url 'model' %}" class="btn-get-started">Model</a>
+          </div>
+        </div>
+		{% else %}
+		<div class="carousel-item active">
+			<img src="data:image/jpeg;base64,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" alt="">
+			<div class="carousel-container">
+				<p class="subtitle"  style="color: #F28123;">As a New User</p>
+				<h1 >Kindly Register or Login here </h1>
+				<a href="{% url 'users-register' %}"class="btn-get-started" >Register </a>
+				<a href="{% url 'login' %}"class="btn-get-started">Login</a>
+			</div>
+		</div><!-- End Carousel Item -->
+		{% endif %}
+       
+
+
+      </div>
+
+    </section><!-- /Hero Section -->
+	{% if user.is_authenticated %}
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+		<!-- Section Title -->
+		<div class="container section-title" data-aos="fade-up">
+		  <h2>About Heartbeat Classification</h2>
+		  <p>Leveraging cutting-edge technology to monitor and analyze cardiac health through precise heartbeat classification.</p>
+		</div><!-- End Section Title -->
+  
+		<div class="container">
+  
+		  <div class="row gy-3">
+  
+			<div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+			  <img src="https://t3.ftcdn.net/jpg/08/97/99/44/360_F_897994406_R1ADt0S1JiTuGllL0G0N2vLHOwF6Xuf4.jpg" alt="Heartbeat Classification" class="img-fluid" style="height: 650px;">
+			</div>
+  
+			<div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+			  <div class="about-content ps-0 ps-lg-3">
+				<h3>Advanced Heartbeat Classification Techniques for Accurate Cardiac Monitoring</h3>
+				<p class="fst-italic">
+				  Our heartbeat classification solutions employ the latest machine learning and deep learning techniques to provide accurate and real-time analysis of cardiac rhythms. This enables early detection of potential heart conditions and helps in timely medical intervention.
+				</p>
+				<ul>
+				  <li>
+					<i class="bi bi-heart-pulse"></i>
+					<div>
+					  <h4>Real-time Heartbeat Analysis</h4>
+					  <p>Our system continuously monitors heartbeat patterns, offering real-time insights and alerts for any irregularities that may indicate underlying heart issues.</p>
+					</div>
+				  </li>
+				  <li>
+					<i class="bi bi-clipboard-check"></i>
+					<div>
+					  <h4>Accurate Classification and Diagnosis</h4>
+					  <p>Utilizing advanced algorithms, our heartbeat classification technology ensures precise detection of various cardiac conditions, facilitating accurate diagnosis and effective treatment planning.</p>
+					</div>
+				  </li>
+				  <li>
+					<i class="bi bi-shield-check"></i>
+					<div>
+					  <h4>Enhanced Patient Care</h4>
+					  <p>By providing actionable insights and early warnings, our solution enhances patient care and supports healthcare professionals in delivering better outcomes.</p>
+					</div>
+				  </li>
+				</ul>
+			  </div>
+  
+			</div>
+		  </div>
+  
+		</div>
+  
+	  </section>
+  <!-- /About Section -->
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+
+		<!-- Section Title -->
+		<div class="container section-title" data-aos="fade-up">
+		  <h2>Services</h2>
+		  <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+		</div><!-- End Section Title -->
+  
+		<div class="container">
+  
+		  <div class="row g-5">
+  
+			<div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+			  <div class="service-item item-cyan position-relative">
+				<i class="bi bi-heart icon"></i>
+				<div>
+				  <h3>Artifact</h3>
+				  <p>Artifacts are abnormal findings in data that do not originate from the normal physiological or pathological processes. They can distort the accuracy of diagnostic results and need to be carefully identified and excluded.</p>
+				  <a href="https://en.wikipedia.org/wiki/Artifact" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+				</div>
+			  </div>
+			</div><!-- End Service Item -->
+  
+			<div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+			  <div class="service-item item-orange position-relative">
+				<i class="bi bi-diamond icon"></i>
+				<div>
+				  <h3>Extrahls</h3>
+				  <p>Extrahls refer to extraneous or unwanted signals that can interfere with the interpretation of diagnostic data. Proper filtering and analysis techniques are necessary to manage and mitigate these disturbances.</p>
+				  <a href="https://www.healthline.com/health/heart-murmurs#:~:text=An%20S3%20gallop%20or%20%E2%80%9Cthird,S1%20systole%20%E2%80%9Club%E2%80%9D%20sound." class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+				</div>
+			  </div>
+			</div><!-- End Service Item -->
+  
+			<div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+			  <div class="service-item item-teal position-relative">
+				<i class="bi bi-diamond icon"></i>
+				<div>
+				  <h3>Extrastole</h3>
+				  <p>Extrastole denotes abnormal heartbeats occurring outside the normal rhythm. These irregularities can be symptomatic of underlying cardiovascular issues and require accurate monitoring for effective management.</p>
+				  <a href="https://en.wikipedia.org/wiki/Premature_ventricular_contraction" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+				</div>
+			  </div>
+			</div><!-- End Service Item -->
+  
+			<div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+			  <div class="service-item item-red position-relative">
+				<i class="bi bi-heart icon"></i>
+				<div>
+				  <h3>Murmur</h3>
+				  <p>A murmur is an abnormal sound heard during a heartbeat, often caused by turbulent blood flow within the heart. Murmurs can indicate various heart conditions and may necessitate further diagnostic evaluation.</p>
+				  <a href="https://en.wikipedia.org/wiki/Heart_murmur" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+				</div>
+			  </div>
+			</div><!-- End Service Item -->
+  
+			<div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
+			  <div class="service-item item-indigo position-relative">
+				<i class="bi bi-check-circle icon"></i>
+				<div>
+				  <h3>Normal</h3>
+				  <p>Normal refers to findings within the expected range of physiological or diagnostic parameters. Regular monitoring and maintaining normal levels are crucial for overall health and effective disease prevention.</p>
+				  <a href="https://en.wikipedia.org/wiki/Heart" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+				</div>
+			  </div>
+			</div><!-- End Service Item -->
+  
+			<div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+			  <div class="service-item item-pink position-relative">
+				<i class="bi bi-question-circle icon"></i>
+				<div>
+				  <h3>Unlabel</h3>
+				  <p>Unlabel refers to data or findings that have not been classified or identified within a diagnostic framework. Unlabeled data requires further analysis and interpretation to determine its significance and relevance.</p>
+				  <a href="service-details.html" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+				</div>
+			  </div>
+			</div><!-- End Service Item -->
+  
+		  </div>
+  
+		</div>
+  
+	  </section>
+  <!-- /Services Section -->
+
+    <!-- Features Section -->
+	<section id="features" class="features section light-background">
+
+		<!-- Section Title -->
+		<div class="container section-title" data-aos="fade-up">
+		  <h2>Features</h2>
+		  <p>Explore the advantages of heartbeat classification technology</p>
+		</div><!-- End Section Title -->
+	  
+		<div class="container">
+	  
+		  <!-- Feature Item 1 -->
+		  <div class="row gy-4 justify-content-between features-item">
+	  
+			<div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+			  <img src="https://media.istockphoto.com/id/1359314170/photo/heart-attack-and-heart-disease-3d-illustration.webp?b=1&s=170667a&w=0&k=20&c=fK2a-mCQ-dJA6066LnfQlN8awak_ZI6BsdKsmcQfCn8=" class="img-fluid" alt="Early Detection">
+			</div>
+	  
+			<div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
+			  <div class="content">
+				<h3>Early Detection of Cardiac Abnormalities</h3>
+				<p>
+				  Predictive health monitoring through heartbeat classification enables early detection of potential cardiac issues such as arrhythmias, allowing timely intervention and reducing the risk of severe conditions.
+				</p>
+				<a href="#" class="btn more-btn">Learn More</a>
+			  </div>
+			</div>
+	  
+		  </div><!-- End Feature Item 1 -->
+	  
+		  <!-- Feature Item 2 -->
+		  <div class="row gy-4 justify-content-between features-item">
+	  
+			<div class="col-lg-5 d-flex align-items-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+			  <div class="content">
+				<h3>Enhanced Diagnostic Accuracy</h3>
+				<p>
+				  Improves the precision of heart condition diagnoses by analyzing heartbeat patterns that might not be visible to the human eye, providing consistent and reliable results.
+				</p>
+				<ul>
+				  <li><i class="bi bi-check2-square flex-shrink-0"></i> Reduced diagnostic errors.</li>
+				  <li><i class="bi bi-check2-square flex-shrink-0"></i> Consistent results.</li>
+				  <li><i class="bi bi-check2-square flex-shrink-0"></i> Reliable precision in diagnosis.</li>
+				</ul>
+				<p></p>
+				<a href="#" class="btn more-btn">Learn More</a>
+			  </div>
+			</div>
+	  
+			<div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+			  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuDrJLv5lsvN-V2KrO-Sr8zY6C500QNoQUUT4f9sn2Yvuxs-bDYNOuz3jWozhm2THE3TM&usqp=CAU" class="img-fluid" alt="Diagnostic Accuracy" style="height: 350px; width: 350px;">
+			</div>
+	  
+		  </div><!-- End Feature Item 2 -->
+	  
+		</div>
+	  
+	  </section>
+	  <!-- /Features Section -->
+
+    <!-- Why Us Section -->
+	<section id="why-us" class="why-us section">
+
+		<!-- Section Title -->
+		<div class="container section-title" data-aos="fade-up">
+		  <h2>Why Choose Our Heart Disease Classification?</h2>
+		  <p>Discover how our advanced classification system provides accurate and reliable results for heart disease detection.</p>
+		</div><!-- End Section Title -->
+	  
+		<div class="container">
+	  
+		  <div class="row gy-4">
+	  
+			<div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+			  <div class="card-item">
+				<span>01</span>
+				<h4><a href="" class="stretched-link">Accurate Detection</a></h4>
+				<p>Our system uses state-of-the-art algorithms to provide precise classification of heart disease, ensuring reliable results for better diagnosis.</p>
+			  </div>
+			</div><!-- Card Item -->
+	  
+			<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+			  <div class="card-item">
+				<span>02</span>
+				<h4><a href="" class="stretched-link">Early Warning</a></h4>
+				<p>Receive early warnings for potential heart issues based on our predictive models, helping you take timely action and prevent severe conditions.</p>
+			  </div>
+			</div><!-- Card Item -->
+	  
+			<div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+			  <div class="card-item">
+				<span>03</span>
+				<h4><a href="" class="stretched-link">Comprehensive Analysis</a></h4>
+				<p>Benefit from a thorough analysis of heart disease indicators, providing a complete view of your cardiovascular health and aiding in effective treatment planning.</p>
+			  </div>
+			</div><!-- Card Item -->
+	  
+		  </div>
+	  
+		</div>
+	  
+	  </section>
+	  <!-- /Why Us Section -->
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+
+		<!-- Section Title -->
+		<div class="container section-title" data-aos="fade-up">
+		  <h2>Heartbeat Classification Portfolio</h2>
+		  <p>Explore our various projects focused on heartbeat classification and related analyses.</p>
+		</div><!-- End Section Title -->
+	  
+		<div class="container">
+	  
+		  <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+	  
+			<ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+			  <li data-filter="*" class="filter-active">All</li>
+			  <li data-filter=".filter-model">Model</li>
+			  <li data-filter=".filter-dataset">Dataset</li>
+			  <li data-filter=".filter-visualization">Visualization</li>
+			  <li data-filter=".filter-analysis">Analysis</li>
+			</ul><!-- End Portfolio Filters -->
+	  
+			<div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+	  
+			  <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-model">
+				<div class="portfolio-content h-100">
+				  <a href="assets/img/portfolio/model-1.jpg" data-gallery="portfolio-gallery-model" class="glightbox"><img src="assets/img/portfolio/model-1.jpg" class="img-fluid" alt=""></a>
+				  <div class="portfolio-info">
+					<h4><a href="portfolio-details.html" title="More Details">Model 1</a></h4>
+					<p>Classification model using CNN for heartbeat detection.</p>
+				  </div>
+				</div>
+			  </div><!-- End Portfolio Item -->
+	  
+			  <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-dataset">
+				<div class="portfolio-content h-100">
+				  <a href="assets/img/portfolio/dataset-1.jpg" data-gallery="portfolio-gallery-dataset" class="glightbox"><img src="assets/img/portfolio/dataset-1.jpg" class="img-fluid" alt=""></a>
+				  <div class="portfolio-info">
+					<h4><a href="portfolio-details.html" title="More Details">Dataset 1</a></h4>
+					<p>Dataset with annotated heartbeat signals for training models.</p>
+				  </div>
+				</div>
+			  </div><!-- End Portfolio Item -->
+	  
+			  <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-visualization">
+				<div class="portfolio-content h-100">
+				  <a href="assets/img/portfolio/visualization-1.jpg" data-gallery="portfolio-gallery-visualization" class="glightbox"><img src="assets/img/portfolio/visualization-1.jpg" class="img-fluid" alt=""></a>
+				  <div class="portfolio-info">
+					<h4><a href="portfolio-details.html" title="More Details">Visualization 1</a></h4>
+					<p>Visual representation of heartbeat classification results.</p>
+				  </div>
+				</div>
+			  </div><!-- End Portfolio Item -->
+	  
+			  <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-analysis">
+				<div class="portfolio-content h-100">
+				  <a href="assets/img/portfolio/analysis-1.jpg" data-gallery="portfolio-gallery-analysis" class="glightbox"><img src="assets/img/portfolio/analysis-1.jpg" class="img-fluid" alt=""></a>
+				  <div class="portfolio-info">
+					<h4><a href="portfolio-details.html" title="More Details">Analysis 1</a></h4>
+					<p>Analysis of model performance and accuracy metrics.</p>
+				  </div>
+				</div>
+			  </div><!-- End Portfolio Item -->
+	  
+			  <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-model">
+				<div class="portfolio-content h-100">
+				  <a href="assets/img/portfolio/model-2.jpg" data-gallery="portfolio-gallery-model" class="glightbox"><img src="assets/img/portfolio/model-2.jpg" class="img-fluid" alt=""></a>
+				  <div class="portfolio-info">
+					<h4><a href="portfolio-details.html" title="More Details">Model 2</a></h4>
+					<p>Advanced model for heartbeat anomaly detection.</p>
+				  </div>
+				</div>
+			  </div><!-- End Portfolio Item -->
+	  
+			  <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-dataset">
+				<div class="portfolio-content h-100">
+				  <a href="assets/img/portfolio/dataset-2.jpg" data-gallery="portfolio-gallery-dataset" class="glightbox"><img src="assets/img/portfolio/dataset-2.jpg" class="img-fluid" alt=""></a>
+				  <div class="portfolio-info">
+					<h4><a href="portfolio-details.html" title="More Details">Dataset 2</a></h4>
+					<p>Expanded dataset for better model training and validation.</p>
+				  </div>
+				</div>
+			  </div><!-- End Portfolio Item -->
+	  
+			  <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-visualization">
+				<div class="portfolio-content h-100">
+				  <a href="assets/img/portfolio/visualization-2.jpg" data-gallery="portfolio-gallery-visualization" class="glightbox"><img src="assets/img/portfolio/visualization-2.jpg" class="img-fluid" alt=""></a>
+				  <div class="portfolio-info">
+					<h4><a href="portfolio-details.html" title="More Details">Visualization 2</a></h4>
+					<p>Enhanced visualizations showing classification thresholds.</p>
+				  </div>
+				</div>
+			  </div><!-- End Portfolio Item -->
+	  
+			  <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-analysis">
+				<div class="portfolio-content h-100">
+				  <a href="assets/img/portfolio/analysis-2.jpg" data-gallery="portfolio-gallery-analysis" class="glightbox"><img src="assets/img/portfolio/analysis-2.jpg" class="img-fluid" alt=""></a>
+				  <div class="portfolio-info">
+					<h4><a href="portfolio-details.html" title="More Details">Analysis 2</a></h4>
+					<p>Detailed analysis of model performance across different metrics.</p>
+				  </div>
+				</div>
+			  </div><!-- End Portfolio Item -->
+	  
+			  <!-- Repeat for more items as needed -->
+	  
+			</div><!-- End Portfolio Container -->
+	  
+		  </div>
+	  
+		</div>
+	  
+	  </section>
+	  <!-- /Portfolio Section -->
+
+    <!-- Pricing Section -->
+    <!-- /Faq Section -->
+
+    <!-- Contact Section -->
+    <!-- /Contact Section -->
+
+  </main>
+
+  {% endif %}
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{%static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{%static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{%static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{%static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{%static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{%static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{%static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{%static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

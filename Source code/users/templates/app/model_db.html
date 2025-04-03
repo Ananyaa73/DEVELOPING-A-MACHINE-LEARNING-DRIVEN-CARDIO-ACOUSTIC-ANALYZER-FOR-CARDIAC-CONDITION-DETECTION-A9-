@@ -1,0 +1,102 @@
+{% block content %}
+<!-- air_quality_data.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Records Data</title>
+    <style>
+        /* General page styling */
+        body {
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3JnLMycS6vbhg6U4pwoHbZGHCKUVwP0S05g&usqp=CAU') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Table styling */
+        table {
+            width: 90%;
+            margin: 40px auto;
+            border-collapse: collapse;
+            background-color: #ffffff; /* White background for the table */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        }
+
+        /* Caption styling */
+        caption {
+            font-size: 1.8em;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #007bff; /* Hospital blue color for caption */
+        }
+
+        /* Header row styling */
+        thead tr {
+            background-color: #0069d9; /* Hospital blue background */
+            color: white;
+        }
+
+        /* Table cell and row styling */
+        td, th {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Alternate row background color */
+        tbody tr:nth-child(even) {
+            background-color: #f1f1f1; /* Light gray */
+        }
+
+        /* Audio cell styling */
+        .audio-cell audio {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect for audio players */
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+
+            .audio-cell audio {
+                max-width: 200px; /* Smaller audio player on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+  
+    <table>
+        <caption>Medical Records Database</caption>
+        <thead>
+            <tr>
+                <th scope="col">Audio</th>
+                <th scope="col">Diagnosis Label</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for model in models %}
+            <tr>
+                <td class="audio-cell">
+                    <audio controls>
+                        <source src="{{ model.audio_file.url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </td>
+                <td>{{ model.prediction }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock content %}
